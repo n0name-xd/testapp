@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { StoreProvider } from "./StoreProvider";
 import "./styles/index.css";
+import { Header } from "./components/Header";
 
 interface Props {
   readonly children: ReactNode;
@@ -10,9 +11,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <StoreProvider>
       <html lang="ru">
-        <body>
+        <body className="wrapper">
           <section>
-            <header></header>
+            <Header />
             <main>{children}</main>
           </section>
         </body>
