@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import React from "react";
-import { PostItem } from "../components/common/PostIte";
-import { getPostsByUserId } from "../libs/publicApi";
-import { PostType } from "../types/MapTypes";
+import { PostItem } from "../../components/common/PostIte";
+import { getPostsByUserId } from "../../libs/publicApi";
+import { PostType } from "../../types/MapTypes";
 
-const User = async () => {
-  const posts = await getPostsByUserId(1);
+const User = async ({ params }: { params: { id: string } }) => {
+  const id = +params.id;
+  const posts = await getPostsByUserId(id);
 
   return (
     <div>

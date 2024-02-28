@@ -13,6 +13,7 @@ export const CardList: React.FC<ICardListProps> = ({
       {data.map((elem: UserType) => {
         return (
           <CardItem
+            id={elem.id}
             key={elem.id}
             name={elem.name}
             email={elem.email}
