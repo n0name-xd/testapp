@@ -3,28 +3,12 @@
 import Image from "next/image";
 import React from "react";
 import { PostItem } from "../components/common/PostIte";
+import { getPostsByUserId } from "../libs/publicApi";
+import { PostType } from "../types/MapTypes";
 
-export interface IUserProps {
-  name?: string;
-}
+const User = async () => {
+  const posts = await getPostsByUserId(1);
 
-const posts = [
-  {
-    id: 1,
-    title:
-      "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    description:
-      "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-  },
-  {
-    id: 2,
-    title: "qui est esse",
-    description:
-      "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-  },
-];
-
-const User: React.FC<IUserProps> = ({ name }: IUserProps) => {
   return (
     <div>
       <div className="user__header">
@@ -35,7 +19,7 @@ const User: React.FC<IUserProps> = ({ name }: IUserProps) => {
         <div>Posts</div>
       </div>
       <div className="post-list">
-        {posts.map((el) => {
+        {posts.map((el: PostType) => {
           return (
             <PostItem
               key={el.id}
