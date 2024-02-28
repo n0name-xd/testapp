@@ -1,8 +1,10 @@
 import { PostApiType, UserApiType } from "../types/ApiTypes";
 import { PostType, UserType } from "../types/MapTypes";
 
-export const getUsers = async (): Promise<UserType[]> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/users`);
+export const getUsers = async (limit = 10, page = 1): Promise<UserType[]> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/users?_limit=${limit}&_page=${page}`
+  );
   const data = await response.json();
 
   return data.map((el: UserApiType): UserType => {
