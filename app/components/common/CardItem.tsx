@@ -6,17 +6,19 @@ interface ICardItemProps {
   email: string;
   numberOfPhone: string;
   website: string;
+  id: number;
 }
 
 export const CardItem: React.FC<ICardItemProps> = ({
   name,
+  id,
   status,
   email,
   numberOfPhone,
   website,
 }: ICardItemProps) => {
   return (
-    <Link href="/user" className="card__link">
+    <Link href={`/user/${id}`} className="card__link">
       <div className="card__container">
         <h3>{name}</h3>
         <div>{status}</div>

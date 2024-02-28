@@ -1,8 +1,8 @@
-import { IApiData } from "@/app/types/ApiTypes";
 import { CardItem } from "./CardItem";
+import { UserType } from "@/app/types/MapTypes";
 
 export interface ICardListProps {
-  data: IApiData[];
+  data: UserType[];
 }
 
 export const CardList: React.FC<ICardListProps> = ({
@@ -10,15 +10,16 @@ export const CardList: React.FC<ICardListProps> = ({
 }: ICardListProps) => {
   return (
     <div className="main__card-list">
-      {data.map((elem: IApiData) => {
+      {data.map((elem: UserType) => {
         return (
           <CardItem
+            id={elem.id}
             key={elem.id}
             name={elem.name}
             email={elem.email}
-            numberOfPhone={elem.number}
-            status={elem.some}
-            website={elem.webSite}
+            numberOfPhone={elem.phone}
+            status={elem.username}
+            website={elem.website}
           />
         );
       })}

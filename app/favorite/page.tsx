@@ -1,26 +1,12 @@
 import React from "react";
 import { CardList } from "../components/common/CardList";
-import { IApiData } from "../types/ApiTypes";
+import { getUsers } from "../libs/publicApi";
 
-const data = [
-  {
-    id: 1,
-    name: "Leanne Graham",
-    some: "Bret",
-    email: "Sincere@april.biz",
-    number: "1-770-736-8031 x56442",
-    webSite: "hildegard.org",
-  },
-] as IApiData[];
-
-interface IFavoriteProps {
-  data: IApiData[];
-}
-
-const Favorite: React.FC<IFavoriteProps> = () => {
+const Favorite = async () => {
+  const users = await getUsers();
   return (
     <div className="main__container">
-      <CardList data={data} />
+      <CardList data={users} />
     </div>
   );
 };
