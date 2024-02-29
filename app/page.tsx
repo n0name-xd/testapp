@@ -11,6 +11,9 @@ import { NextButton } from "./components/paginate/NextButton";
 const Index = () => {
   const [users, setUsers] = useState<UserType[]>([]);
 
+  //Так как юзеров всего 10, я решил размер страницы сделать по 5 записей,
+  //что бы показать что работает пагинация
+
   const COUNT_USERS = 10;
   const PAGE_SIZE = 5;
   const pagesCount = COUNT_USERS / PAGE_SIZE;

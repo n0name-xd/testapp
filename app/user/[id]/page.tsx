@@ -1,26 +1,58 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PostItem } from "../../components/common/PostIte";
-import { getPostsByUserId } from "../../libs/publicApi";
-import { PostType } from "../../types/MapTypes";
+import { getPostsByUserId, getUserDataById } from "../../libs/publicApi";
+import { PostType, UserType } from "../../types/MapTypes";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import {
+  addFavorite,
+  removeFavorite,
+  selectFavorite,
+} from "@/lib/features/favoriteSlice";
 
-const User = async ({ params }: { params: { id: string } }) => {
+const User = ({ params }: { params: { id: string } }) => {
+  const dispatch = useAppDispatch();
+  const favoriteList = useAppSelector(selectFavorite);
+
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [name, setName] = useState<string>("");
+
   const id = +params.id;
-  const posts = await getPostsByUserId(id);
+
+  useEffect(() => {
+    getPostsByUserId(id).then((res: PostType[]) => setPosts(res));
+    getUserDataById(id).then((res: UserType[]) => setName(res[0].name));
+  }, []);
+
+  const handleLike = () => {
+    favoriteList.includes(id)
+      ? dispatch(removeFavorite(id))
+      : dispatch(addFavorite(id));
+  };
 
   return (
     <div>
       <div className="user__header">
         <div className="user__like">
-          <h2>Leanne Graham</h2>
-          <Image alt="star" src="/icons/star.svg" width={24} height={24} />
+          <h2>{name}</h2>
+          <Image
+            onClick={handleLike}
+            alt="star"
+            src={
+              favoriteList.includes(id)
+                ? "/icons/star-gold.svg"
+                : "/icons/star.svg"
+            }
+            width={24}
+            height={24}
+          />
         </div>
         <div>Posts</div>
       </div>
       <div className="post-list">
-        {posts.map((el: PostType) => {
+        {posts?.map((el: PostType) => {
           return (
             <PostItem
               key={el.id}
