@@ -34,3 +34,19 @@ export const getPostsByUserId = async (id: number): Promise<PostType[]> => {
     };
   });
 };
+
+export const getUserDataById = async (id: number): Promise<UserType[]> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/users?id=${id}`);
+  const data = await response.json();
+
+  return data.map((el: UserApiType): UserType => {
+    return {
+      id: el.id,
+      name: el.name,
+      email: el.email,
+      phone: el.phone,
+      username: el.username,
+      website: el.website,
+    };
+  });
+};
